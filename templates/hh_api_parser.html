@@ -43,8 +43,17 @@ Released   : 20131202
 	<div id="banner-wrapper">
 		<div id="banner" class="container">
 			<h2>HH API parser</h2>
-			<p>Средняя зарплата по запросу <strong> Python, Москва </strong>по данным сайта <a href="https://hh.ru/">hh.ru</a></p>
-			<a href="/average_salary" class="button">Рассчитать</a>
+<!--			<p>Средняя зарплата по запросу <strong> Python, Москва </strong>по данным сайта <a href="https://hh.ru/">hh.ru</a></p>-->
+				<p>Средняя зарплата по Вашу запросу по данным сайта <a href="https://hh.ru/">hh.ru</a></p>
+			<form method="post">
+				<p>Вакансия  <input type="text" value="Python" name="vacancy"></p>
+				<p>Город  <input type="text" value="Москва" name="city"></p>
+
+				<button type='submit' class="button">Рассчитать</button>
+
+			</form>
+
+<!--			<a href="/average_salary" class="button">Рассчитать</a>-->
 		</div>
 	</div>
 </div>

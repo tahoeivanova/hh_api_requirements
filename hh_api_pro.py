@@ -7,7 +7,8 @@ import string
 
 
 
-def avarage_salary():
+
+def avarage_salary(vacancy, city):
 
     URL = 'https://api.hh.ru/vacancies'
     salary_list_from = [] # список с зарплатами от...
@@ -15,7 +16,7 @@ def avarage_salary():
 
     for n in range(20):
 
-        params = {'text': 'Python && Москва',
+        params = {'text': f'{vacancy} && {city}',
         'only_with_salary': True,
         'per_page': 100, 'page': n
         }
@@ -28,24 +29,32 @@ def avarage_salary():
             if j['salary']['to'] != None: # убираем зарплаты с пустным значением
                 salary_list_to.append(j['salary']['to']) # создаем лист с зарплатой до...
 
+
+
     # Средняя зарплата (от:)
     # делим сумму списка зарплат от... на количество элементов списка
     # округляем (round), приводим к строке для вывода в формате 000 000
-    salary_from_average = str(round(sum(salary_list_from)/len(salary_list_from)))
-    salary_from_average = f'{salary_from_average [:-3]} {salary_from_average [-3:]}'
+    try:
+        salary_from_average = str(round(sum(salary_list_from)/len(salary_list_from)))
+        salary_from_average = f'{salary_from_average [:-3]} {salary_from_average [-3:]}'
+    except ZeroDivisionError:
+        salary_from_average = 0
+
 
     # Средняя зарплата (до:)
     # делим сумму списка зарплат до... на количество элементов списка
     # округляем (round), приводим к строке для вывода в формате 000 000
-    salary_to_average = str(round(sum(salary_list_to)/len(salary_list_to)))
-    salary_to_average = f'{salary_to_average [:-3]} {salary_to_average [-3:]}'
-
-
+    try:
+        salary_to_average = str(round(sum(salary_list_to)/len(salary_list_to)))
+        salary_to_average = f'{salary_to_average [:-3]} {salary_to_average [-3:]}'
+    except ZeroDivisionError:
+        salary_to_average = 0
 
     #print(f'Средняя зарплата: от {salary_from_average} до {salary_to_average}')
 
     # Всего было найдено вакансий:
     results_all = result['found']
+
 
     data = {
 
@@ -89,7 +98,7 @@ def hh_requirements():
                 requirement_list += requirement.split() # создаем список из отдельных слов
 
 
-    other_words = {"основа","приветствоваться","задача","java","инструмент","r","go","perl","php","скрипт","технология","желательно","анализ","плюс","скриптовый",
+    other_words = {"математический","алгоритм","основа","приветствоваться","задача","java","инструмент","r","go","perl","php","скрипт","технология","желательно","анализ","плюс","скриптовый",
                    "автоматизация","работа","опыт", "работы","на", "не", "под", "у", "в", "с", "перед","до", "о", "по", "из-за", "от", "для",
                     "из-под", "над", "без", "близ", "ввиду", "между", "возле", "рядом", "около",
                     "отношении", "вокруг", "впереди", "в продожение", "вследствие", "течение",
@@ -107,7 +116,8 @@ def hh_requirements():
                    "писать", "дать", "навык", "уровень", "образование", "years", "<highlighttext>development</highlighttext>", "с...",
                    "и...", "3-х","промышленный","3","базовый","паттерн","желание","данных","образование","разработки.","реляционный","как",
                    "структура","основный","система","код","strong","or","создание","современный","3.","good","проектирование","работы...'",
-                   "необходимый","+", "лет.", "-", "х", "c", "5", "приложение", "разработчик", "rest", "development", "web"}
+                   "необходимый","+", "лет.", "-", "х", "c", "5", "приложение", "разработчик", "rest", "development", "web", "администрирование", "js", "javascript",
+                   "библиотека", "запрос", "проект","тестирование"}
 
     requirement_list_lower = list(map(lambda x: x.lower(), requirement_list)) # приводим слова к нижнему регистру
     words_lemmed = [] # лемматизированный список
