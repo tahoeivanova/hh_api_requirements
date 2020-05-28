@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from hh_api_pro import avarage_salary, hh_requirements
 
 app = Flask(__name__)
@@ -8,9 +8,16 @@ app = Flask(__name__)
 def about_hh_parsing():
     return render_template('index.html')
 
-@app.route('/hh_api')
+@app.route('/hh_api', methods=['GET', 'POST'])
 def hh_api_salary():
-    return render_template('hh_api_parser.html')
+    if request.method == 'POST':
+        vacancy = request.form['vacancy']
+        city = request.form['city']
+        data = avarage_salary(vacancy, city)
+        return render_template('average_salary_results.html', **data)
+    else:
+        return render_template('hh_api_parser.html')
+
 
 @app.route('/hh_api_pro')
 def hh_api_requirements():
@@ -34,4 +41,4 @@ def contacts():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
