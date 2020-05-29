@@ -19,21 +19,29 @@ def hh_api_salary():
         return render_template('hh_api_parser.html')
 
 
-@app.route('/hh_api_pro')
-def hh_api_requirements():
-    return render_template('hh_api_parser_pro.html')
+# @app.route('/hh_api_pro')
+# def hh_api_requirements():
+#     return render_template('hh_api_parser_pro.html')
 
-@app.route('/requirements_results')
+# @app.route('/requirements_results')
+@app.route('/hh_api_pro', methods=['GET', 'POST'])
 def hh_api_requirements_results():
-    results_all, results_list = hh_requirements()
-    results_dict = {str(a): results_list[a] for a in range(10)}
+    if request.method == 'POST':
+        vacancy = request.form['vacancy']
+        city = request.form['city']
+        results_all, results_list = hh_requirements(vacancy, city)
+        try:
+            results_dict = {str(a): results_list[a] for a in range(10)}
+        except IndexError:
+            results_dict = {'0': 'no results'}
+        return render_template('requirements_results.html', results_all=results_all,results_dict=results_dict)
+    else:
+        return render_template('hh_api_parser_pro.html')
 
-    return render_template('requirements_results.html', results_all=results_all,results_dict=results_dict)
-
-@app.route('/average_salary')
-def salary_results():
-    data = avarage_salary()
-    return render_template('average_salary_results.html', **data)
+# @app.route('/average_salary')
+# def salary_results():
+#     data = avarage_salary()
+#     return render_template('average_salary_results.html', **data)
 
 @app.route('/contacts')
 def contacts():

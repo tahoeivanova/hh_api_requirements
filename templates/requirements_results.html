@@ -1,38 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
-<link href="static/css/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-
-<!--[if IE 6]><link href="static/css/default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-
-</head>
-<body>
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><span class="fa fa-bolt"></span><a href="/index">HH API Parser</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li class="current_page_item"><a href="/index" accesskey="1" title="">Home</a></li>
-				<li><a href="/hh_api" accesskey="2" title="">HH Api Parser</a></li>
-				<li><a href="/hh_api_pro" accesskey="2" title="">HH Api Parser Pro</a></li>
-				<li><a href="/contacts" accesskey="5" title="">Contact Us</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-<div id="header-featured">
-	<div id="banner-wrapper">
-		<div id="banner" class="container">
-			<p>По запросу <strong> Python, Москва </strong>по данным сайта <a href="https://hh.ru/">hh.ru</a></p>
+{% extends "base.html" %}
+{% block content %}
+			<p>По Вашему запросу по данным сайта <a href="https://hh.ru/">hh.ru</a></p>
 			<p>Всего найдено: {{results_all}} вакансий с различными требованиями</p>
 			<p>ТОП-10 навыков:</p>
 			<ol start="1">
@@ -47,12 +15,4 @@
 				<li>{{results_dict['8']}}</li>
 				<li>{{results_dict['9']}}</li>
 			</ol>
-		</div>
-	</div>
-</div>
-
-<div id="copyright" class="container">
-	<p>by AraxnoAnarxo, 2020</p>
-</div>
-</body>
-</html>
+{%endblock%}
